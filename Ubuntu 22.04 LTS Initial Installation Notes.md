@@ -4,11 +4,23 @@ This document contains useful tips to install various applications on a new Ubun
 These applications vary from development tools to office management.
  
 * * *
-## Outlook: 
+## Outlook for Office365 accounts: 
 - [ ] Installation:
 `sudo snap install prospect-mail`
 - [ ] Setup:
 	- Connect using your Microsoft LDAP account
+
+* * *
+## Emails for private Exchange accounts: 
+- [ ] Installation:
+`sudo apt install evolution-ews`
+- [ ] Setup:
+  - Go to `Activities` > `Evolution`
+  - On the top menu: Go to `Edit` > `Accounts`
+  - Click on Add Email Account.
+  - On the `Server Type` select `Exchange Web Services`
+  - Update the Exchange url in the form `https://mail.xxxxx.com/EWS/Exchange.asmx)/`
+    If you are not sure what to add, usually the domain of the server matches your online owa weblink (usually provided in the form of `https:://mail.xxxxxx.com/owa`)
 
 * * *
 ## ClamAV Antivirus: 
