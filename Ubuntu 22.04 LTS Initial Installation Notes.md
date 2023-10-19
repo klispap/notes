@@ -17,11 +17,14 @@ These applications vary from development tools to office management.
 - [ ] Setup:
 	- Hit `Activities`, Search for `Clamtk`, and execute
  	![6ab1bfcf26c798dab3c7c7eafd79cb98.png](_resources/6ab1bfcf26c798dab3c7c7eafd79cb98.png)
+
 	- Hit `Settings`:
  	![b3107e982455c6d9531c4b948c631f2d.png](_resources/b3107e982455c6d9531c4b948c631f2d.png)
+
 	- Tick **EVERYTHING**!
 	- Hit `Back` and then hit `Scheduler`:
 	![99ecdcf3d8f1763f6b6d9f3b7f14884d.png](_resources/99ecdcf3d8f1763f6b6d9f3b7f14884d.png)
+
  	- Select the time you want your Antivirus to perform a scan. The screenshot shows 00:00 everyday.
 	- Hit the `+` button below. Make sure than the `Status` changed to `A daily scan is scheduled`
 	- Select the time you want your Signatures to be updated. The screenshot shows 23:00 everyday.
@@ -180,26 +183,27 @@ excludesFile = "~/tools/git_global_ignore"
 * * *
 ##  nVIDIA Drivers for Linux: 
 - [ ] Installation:
-	- Get the drivers from here: https://www.nvidia.com/content/DriverDownload-March2009/confirmation.php?url=/XFree86/Linux-x86_64/510.54/NVIDIA-Linux-x86_64-510.54.run&lang=us&type=TITAN 
-	- Execute:
+ 	- Execute:
 		```
-		chmod +x NVIDIA-Linux-x86_64-510.54.run
-		./NVIDIA-Linux-x86_64-510.54.run
-		sudo ./NVIDIA-Linux-x86_64-510.54.run
+		sudo apt install nvidia-driver-515
 		```
 
 * * *
 ## PulseAudioControl for Linux Sound Cards: 
 - [ ] Installation:
 	- Ubuntu users can quickly install the Pavucontrol application using the Apt package manager:
-	`sudo apt install pavucontrol`
+	```
+	sudo apt install pavucontrol
+ 	```
 	- This application can be called by the command line `pavucontrol` or by searching `Volume Control` in `Activities`.
 	- You can then change the output sound device per application etc (just like Windows sound mixer)
 	
 	![e5540e89c0bc312b43750344bc4b3406.png](_resources/e5540e89c0bc312b43750344bc4b3406.png)
  	
 	- If you want to merge sound devices (like outputting the same sound to two devices) you can install Paprefs with:
-	`sudo apt install paprefs`
+	```
+	sudo apt install paprefs
+ 	```
 	- This application can be called by the command line `paprefs` or searching `PulseAudio Preferences` in `Activities`. 
 	- You can then redirect every sound stream to another device or merge them together (Simulteneous Output).
 	
@@ -403,18 +407,24 @@ excludesFile = "~/tools/git_global_ignore"
 * * *
 ## Install Windows-based Applications (if you can't live without): 
 - [ ] **Notepad++**
-	`sudo snap install notepad-plus-plus`
+	```
+ 	sudo snap install notepad-plus-plus
+ 	```
 
-- [ ] MobaXterm:**
+- [ ] **MobaXterm:**
 	- Follow the instructions to get the latest portable version: https://download.mobatek.net/mobaxterm-on-linux.html 
 	- Download our own wrapper `wine-MobaXterm.desktop` 
 	- Execute the following to install shortcuts in Activities:
-	`sudo desktop-file-install wine-MobaXterm.desktop`
+	```
+	sudo desktop-file-install wine-MobaXterm.desktop
+ 	```
 	
 - [ ] **WinSCP:**
 	- Get the latest portable version: https://winscp.net/eng/docs/portable 
 	- Download our own wrapper `wine-WinSCP.desktop`
 	- Execute the following to install shortcuts in Activities:
-	`sudo desktop-file-install wine-WinSCP.desktop`
+	```
+	sudo desktop-file-install wine-WinSCP.desktop
+ 	```
  
  
