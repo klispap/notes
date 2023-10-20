@@ -28,13 +28,16 @@ These applications vary from development tools to office management.
 `sudo apt install clamav clamtk`
 - [ ] Setup:
 	- Hit `Activities`, Search for `Clamtk`, and execute
- 	![6ab1bfcf26c798dab3c7c7eafd79cb98.png](_resources/6ab1bfcf26c798dab3c7c7eafd79cb98.png)
+ 
+  	![6ab1bfcf26c798dab3c7c7eafd79cb98.png](_resources/6ab1bfcf26c798dab3c7c7eafd79cb98.png)
 
 	- Hit `Settings`:
+   
  	![b3107e982455c6d9531c4b948c631f2d.png](_resources/b3107e982455c6d9531c4b948c631f2d.png)
 
 	- Tick **EVERYTHING**!
 	- Hit `Back` and then hit `Scheduler`:
+   
 	![99ecdcf3d8f1763f6b6d9f3b7f14884d.png](_resources/99ecdcf3d8f1763f6b6d9f3b7f14884d.png)
 
  	- Select the time you want your Antivirus to perform a scan. The screenshot shows 00:00 everyday.
@@ -58,7 +61,11 @@ These applications vary from development tools to office management.
 * * *
 ##  Teams for Linux: 
 - [ ] Installation:
-	- Get the latest version from:  https://www.microsoft.com/en-us/microsoft-teams/download-app 
+	- Get the latest version from:  https://www.microsoft.com/en-us/microsoft-teams/download-app
+ 	- If the download is unavailable for your distro, use the snap instance (even if it is marked as deprecated):
+      	 ```bash
+ 	  sudo snap install teams-for-linux
+     	 ``` 
 - [ ] Setup:
 	- Login using your Microsoft LDAP account
 
@@ -87,28 +94,28 @@ These applications vary from development tools to office management.
 	```
 
 - [ ] Modify the file to match something similar to: 
-```ini
-# This is Git's per-user configuration file.
-[user]
-name = Mpla Mpla
-email = mpla@gmail.com
-
-[credential]
-helper = store
-
-[http]
-sslVerify = false
-
-[alias]
-l = log --all --oneline --decorate --graph --color
-s = status -s
-
-[pull]
-rebase = false
-
-[core]
-excludesFile = "~/tools/git_global_ignore"
-```
+	```ini
+	# This is Git's per-user configuration file.
+	[user]
+	name = Mpla Mpla
+	email = mpla@gmail.com
+	
+	[credential]
+	helper = store
+	
+	[http]
+	sslVerify = false
+	
+	[alias]
+	l = log --all --oneline --decorate --graph --color
+	s = status -s
+	
+	[pull]
+	rebase = false
+	
+	[core]
+	excludesFile = "~/tools/git_global_ignore"
+	```
 
 * * *
 ##  Pureline Bash Prompt: 
