@@ -14,3 +14,23 @@ You can also mark it as `static` to avoid repeated allocations/deallocations if 
   str_legacy_api_function(buff_ptr, buffer_size);
 ```
 
+### Update raw for-loops with the more efficient & safe `std::foreach`:
+
+While we can easily find ourselves coding with the overly familiar `for(int i=0; i<10; i++) {}` style, C++ offers `std::for_each()` since C++ 11 that allows for loops (pun intended) that minimize the chances to make mistakes in the conditions: 
+
+Raw Loop:
+``` cpp
+ // Assume msg is a complex payload structure and we want to initialize an array in field hash
+ for(unsigned int i = 0; i < sizeof msg.cmplDate; i++) {
+        msg.hash[i] = '\0';
+    }
+```
+
+std::for_each Loop:
+``` cpp
+   // Assume msg is a complex payload structure and we want to initialize an array in field hash
+    std::for_each(std::begin(msg.hash), std::end(msg.hash), [](unsigned int i) {
+            i = '\0';
+    });
+```
+
