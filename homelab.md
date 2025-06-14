@@ -16,5 +16,13 @@ In Network > Firewall > General Settings > Add (Under "Zones"). Set the followin
 ![image](https://github.com/user-attachments/assets/ae4d80c8-6bf9-4b06-bb21-92ad1e4caa2a)
 
 
+On OpenWRT SSH:
+```
+tailscale up --netfilter-mode=off --advertise-routes=192.168.1.0/24 --advertise-exit-node
+```
+
+Then Login to tailscape using the link provided by the command.
+
+
 (Based on: https://www.reddit.com/r/Tailscale/comments/yrqbwb/how_to_using_openwrt_as_a_tailscale_exit_node/)
 
