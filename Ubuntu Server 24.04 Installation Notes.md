@@ -88,6 +88,67 @@ Validate the changes
 sudo findmnt --verify --verbose
 ```
 
+# Enable automatic snapshots
+
+This method uses systemd timers to automatically handle snapshots and cleanup. 
+Preparation (Crucial): Ensure your Ubuntu installation is on a Btrfs filesystem.
+
+Install Snapper:
+```bash
+sudo apt update && sudo apt install -y snapper
+```
+
+Create Your Configuration:
+Create a config for your root partition:
+```bash
+sudo snapper -c myconfig create-config -f btrfs /
+```
+
+Configure Automation:
+Automating Snapshots
+To automate snapshot creation, you can enable timeline snapshots in your configuration file. Edit the configuration file located in /etc/snapper/configs/myconfig and set:
+Edit the config file at `/etc/snapper/configs/` to set your retention limits:
+```
+TIMELINE_CREATE="yes": Enables hourly snapshots.
+TIMELINE_LIMIT_HOURLY="5": Keeps the last 5 hours.
+TIMELINE_LIMIT_DAILY="7": Keeps the last 7 days.
+```
+
+Enable the Timers:
+Run these commands to start the automatic background tasks:
+```bash
+sudo systemctl enable --now snapper-timeline.timer
+sudo systemctl enable --now snapper-cleanup.timer
+```
+
+Creating Snapshots
+You can create different types of snapshots:
+
+Single Snapshots: Created manually.
+Pre/Post Snapshots: Automatically created before and after specific operations.
+To create a snapshot, use:
+```
+sudo snapper -c myconfig create
+```
+
+Listing and Managing Snapshots
+To view your snapshots, run:
+```
+sudo snapper -c myconfig list
+```
+
+You can also view differences between snapshots:
+```
+sudo snapper -c myconfig diff <snapshot_id1>..<snapshot_id2>
+```
+
+Rolling Back to a Snapshot
+If you need to revert to a previous state, use:
+
+```
+sudo snapper -c myconfig rollback <snapshot_id>
+```
+
 # Timezone
 
 Find the desired timezone
