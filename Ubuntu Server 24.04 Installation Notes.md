@@ -77,4 +77,7 @@ The UUID is the one of your /dev/sda1.
 
 Swap file can't be located on a btrfs raid of any sort.
 
---Pilot6
+Validate the changes
+```
+sudo findmnt --verify --verbose
+```
