@@ -38,6 +38,8 @@ Mount the @swap subvolume to /swap.
 sudo mount -o subvol=@swap /dev/sda1 /swap
 ```
 
+Creating a swap file on Btrfs is trickier than other filesystems because it requires specific attributes (like NOCOW) to be set before the file is populated. If it’s not visible after a reboot, you likely missed the persistent configuration step or the file attributes are invalid for Btrfs. 
+
 Create the swap file.
 ```
 sudo touch /swap/swapfile
@@ -48,9 +50,10 @@ Set 600 permissions to the file.
 sudo chmod 600 /swap/swapfile
 ```
 
-Disable COW for this directory.
+Disable COW for this directory and file.
 ```
 sudo chattr +C /swap
+sudo chattr +C /swap/swapfile
 ```
 Set size of the swap file to 4G as an example.
 ```
@@ -71,7 +74,11 @@ Now the new swap should be working.
 
 You also need to update /etc/fstab to mount all this on boot. Add there two lines:
 ```
-UUID=XXXXXXXXXXXXXXX /swap btrfs subvol=@swap 0 0 /swap/swapfile none swap sw 0 0
+# 1. Mount the dedicated swap subvolume
+UUID=UUID_OF_PARTITION /swap btrfs subvol=@swap,noatime,nodatacow 0 0
+
+# 2. Activate the swap file within that subvolume
+/swap/swapfile none swap sw 0 0
 ```
 The UUID is the one of your /dev/sda1.
 
