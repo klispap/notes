@@ -1,6 +1,5 @@
 
-
-## Install with BTRFS
+# Install with BTRFS
 
 ## Configure swap (it is disabled by default on BTRFS installations)
 From: http://askubuntu.com/questions/1206157/ddg#1206161
@@ -87,4 +86,21 @@ Swap file can't be located on a btrfs raid of any sort.
 Validate the changes
 ```
 sudo findmnt --verify --verbose
+```
+
+# Timezone
+
+Find the desired timezone
+```
+timedatectl list-timezones | grep "London"
+```
+
+Install the desired timezone
+```
+sudo timedatectl set-timezone Europe/London
+```
+
+Verify
+```
+timedatectl
 ```
