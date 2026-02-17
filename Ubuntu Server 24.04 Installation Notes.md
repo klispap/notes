@@ -337,3 +337,38 @@ UUID=cce6d89d-71e2-4254-b29b-a0f6681b2175 /swap btrfs subvol=@swap,noatime,nodat
 /swap/swapfile none swap sw 0 0
 
 ```
+
+# Create a SMB mount for connecting to Synology NAS (backups etc)
+
+Used `https://atlassc.net/2021/08/10/mount-synology-with-cifs-utils-on-ubuntu/` as baseline.
+
+Install CIFS utilities and the mount point:
+```
+sudo apt install cifs-utils
+sudo mkdir -p /mnt/synology/<SHARED_FOLDER_NAME>
+```
+
+Create the SMB credentials file and allow only root to access:
+```
+sudo bash -c 'cat << EOF > /etc/smbcredentials
+> username=<SMB USER>
+> password=<SMD PASSWORD>
+> domain=WORKGROUP
+> EOF'
+sudo chmod 600 /etc/smbcredentials
+```
+
+Add the mount in `/etc/fstab`:
+```
+# Mount NAS SMB Remote Storage
+//TheHub/lab_backup /mnt/synology/<SHARED_FOLDER_NAME> cifs credentials=/etc/smbcredentials,iocharset=utf8,vers=3.0,sec=ntlmssp,x-systemd.automount,x-systemd.idle-timeout=60,x-systemd.mount-timeout=30,_netdev,nofail  0  0
+```
+
+Verify the mount by reloading:
+```
+sudo systemctl daemon-reload
+sudo mount -a
+```
+
+
+
