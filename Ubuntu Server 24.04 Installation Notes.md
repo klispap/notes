@@ -275,3 +275,45 @@ Verify
 ```
 timedatectl
 ```
+
+
+# Create dedicated Docker BTRFS subvolume (after Snapper was installed and configured)
+
+if you ran `sudo btrfs sub create /@docker`, `/` is likely already a mounted subvolume (possibly one of your snapshots) rather than the raw Btrfs root. This created @docker as a child of that snapshot instead of a "flat" subvolume at the top level. This will cause problems if you restore a later snapshot because the path to `@docker` will change.
+
+You need to create the new subvolume to the btrfs root (Top Level 5):
+```
+sudo mkdir -p /mnt/btrfs-root
+sudo mount /dev/sda1 /mnt/btrfs-root -o subvolid=5
+sudo umount /mnt/btrfs-root
+```
+
+Edit `/etc/fstab` to add a persistent mount point for the new docker subvolume:
+```
+UUID=your-uuid-here /var/lib/docker btrfs defaults,subvol=@docker 0 0
+```
+
+Then you can follow the instructions here: `https://docs.docker.com/engine/storage/drivers/btrfs-driver/`
+
+# Snapper issues for new snapshots after rollback:
+
+You need to manually add a persistent mount point for `/.snapshots` is `/etc/fstab`:
+
+```
+UUID=<YOUR_UUID>  /.snapshots  btrfs  subvol=.snapshots,defaults,noatime  0  0
+```
+
+# BTRFS fstab Housekeeping:
+
+**IMPORTANT: Add `noatime` in all btrfs mounts **
+
+On a standard filesystem, atime updates cause a tiny write every time you read. On Btrfs, it is far more impactful due to Copy-on-Write (CoW): 
+Unexpected Disk Usage: If you have a snapshot and read a file within it, updating the atime requires Btrfs to create a new metadata block for that read operation.
+Write Multiplication: One "read" can trigger multiple "writes" to update metadata across different subvolumes or snapshots, potentially filling up your drive with useless timestamp data. 
+
+**Benefits for Your Setup**
+SSD Longevity: It reduces unnecessary write cycles to your NVMe drive, extending its lifespan.
+Docker Performance: Docker frequently reads small configuration and layer files. Disabling atime prevents these constant metadata writes from slowing down container startup and operation.
+Snapper Efficiency: Since Snapper creates frequent snapshots, noatime ensures that simply browsing or searching through your system doesn't cause those snapshots to grow in size due to metadata changes. 
+
+
