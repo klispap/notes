@@ -316,4 +316,24 @@ SSD Longevity: It reduces unnecessary write cycles to your NVMe drive, extending
 Docker Performance: Docker frequently reads small configuration and layer files. Disabling atime prevents these constant metadata writes from slowing down container startup and operation.
 Snapper Efficiency: Since Snapper creates frequent snapshots, noatime ensures that simply browsing or searching through your system doesn't cause those snapshots to grow in size due to metadata changes. 
 
+```
 
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/nvme0n1p2 during curtin installation
+/dev/disk/by-uuid/cce6d89d-71e2-4254-b29b-a0f6681b2175 / btrfs defaults,noatime 0 1
+# /boot/efi was on /dev/nvme0n1p1 during curtin installation
+/dev/disk/by-uuid/5934-864C /boot/efi vfat defaults 0 1
+
+# Mount the dedicate snapshots subvolume
+UUID=cce6d89d-71e2-4254-b29b-a0f6681b2175  /.snapshots  btrfs  subvol=.snapshots,defaults,noatime  0  0
+
+# Mount the dedicated docker subvolume
+UUID=cce6d89d-71e2-4254-b29b-a0f6681b2175  /var/lib/docker  btrfs  subvol=@docker,defaults,noatime  0  0
+
+# 1. Mount the dedicated swap subvolume
+UUID=cce6d89d-71e2-4254-b29b-a0f6681b2175 /swap btrfs subvol=@swap,noatime,nodatacow 0 0
+
+# 2. Activate the swap file within that subvolume
+/swap/swapfile none swap sw 0 0
+
+```
