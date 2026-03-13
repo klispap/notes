@@ -9,7 +9,7 @@
 
 ```bash
 sudo apt update
-sudo apt install xrdp xserver-xorg-input-all xorgxrdp dbus-x11 xserver-xorg-video-dummy xorgxrdp xserver-xorg-core xfce4 xfce4-goodies ubuntu-gnome-desktop gnome-session gnome-terminal gnome-control-center
+sudo apt install xrdp xserver-xorg-input-all xorgxrdp dbus-x11 xorgxrdp xserver-xorg-core xfce4 xfce4-goodies ubuntu-gnome-desktop gnome-session gnome-terminal gnome-control-center 
 
 sudo adduser xrdp ssl-cert
 
